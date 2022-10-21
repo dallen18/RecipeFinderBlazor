@@ -1,0 +1,53 @@
+﻿@page "/fetchdata"
+
+<PageTitle>Weather forecast</PageTitle>
+
+@using RecipeFinderBlazor.Data
+@using RecipeFinderBlazor.Models
+@inject RapidApiService RapidApiService
+
+<h1>Recipe Search</h1>
+
+<EditForm Model="@input" OnValidSubmit="@SearchRecipe">
+    <input type="text" @bind="@input.Name" />
+    <input type="submit" value="Search" />
+</EditForm>
+
+@if (recipeSearch != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Image</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var recipe in recipeSearch)
+            {
+                <tr>
+                    <td>@recipe.id</td>
+                    <td>@recipe.title</td>
+                    <td>@recipe.image</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private RecipeSearchInput input = new();
+    private List<RecipeSearch> recipeSearch;
+
+    protected override async Task OnInitializedAsync()
+    {
+        //recipeSearch = await RapidApiService.GetRecipeSearch(name);
+    }
+
+    private async Task SearchRecipe()
+    {
+        recipeSearch = await RapidApiService.GetRecipeSearch(input.Name);
+    }
+}
+
