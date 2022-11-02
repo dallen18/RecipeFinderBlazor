@@ -18,7 +18,7 @@ namespace RecipeFinderBlazor.Models
                 Method = HttpMethod.Get,
                 RequestUri = new Uri("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/" + id.ToString() + "/information"),
                 Headers = {
-                    { "X-RapidAPI-Key", "0f17f51ee0msh4b2797fd278017fp14ce0cjsn6c3d3a8925e0" },
+                    { "X-RapidAPI-Key", }, //insert the string of rapid API key here
                     { "X-RapidAPI-Host", "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com" },
                 }
 
