@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
 using RecipeFinderBlazor.Areas.Identity;
 using RecipeFinderBlazor.Data;
+using RecipeFinderBlazor.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +21,8 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
 builder.Services.AddSingleton<RapidApiService>();
+builder.Services.AddSingleton<RecipeService>();
+builder.Services.AddSingleton<RecipeDetailService>();
 
 var app = builder.Build();
 

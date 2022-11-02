@@ -1,0 +1,78 @@
+﻿@page "/recipesearchbycuisine"
+
+
+<PageTitle>Recipe Search By Cuisine</PageTitle>
+
+@using RecipeFinderBlazor.Data
+@using RecipeFinderBlazor.Models
+@inject RecipeService RecipeService
+
+<h1>Recipe Search by Cuisine</h1>
+
+<EditForm Model="@input" OnValidSubmit="@SearchRecipe">
+    <input type="text" @bind="@input.Name" />
+    <InputSelect @bind-Value="@input.Cuisine">
+        <option value="american">American</option>
+        <option value="african">African</option>
+        <option value="chinese">Chinese</option>
+        <option value="japanese">Japanese</option>
+        <option value="korean">Korean</option>
+        <option value="vietnamese">Vietnamese</option>
+        <option value="thai">Thai</option>
+        <option value="indian">Indian</option>
+        <option value="british">British</option>
+        <option value="irish">Irish</option>
+        <option value="french">French</option>
+        <option value="italian">Italian</option>
+        <option value="spanish">Mexican</option>
+        <option value="middle%20eastern">Middle Eastern</option>
+        <option value="jewish">Jewish</option>
+        <option value="cajun">Cajun</option>
+        <option value="southern">Southern</option>
+        <option value="greek">Greek</option>
+        <option value="german">German</option>
+        <option value="nordic">Nordic</option>
+        <option value="eastern%20european">Eastern European</option>
+        <option value="caribbean">Caribbean</option>
+        <option value="latin%american">Latin American</option>
+    </InputSelect>
+    <input type="submit" value="Search" />
+</EditForm>
+
+@if (complexSearch != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Image</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var recipe in complexSearch)
+            {
+                <tr>
+                    <td>@recipe.id</td>
+                    <td>@recipe.title</td>
+                    <td><img src="@recipe.image"></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private RecipeSearchInput input = new();
+    private Recipe[] complexSearch;
+
+    protected override async Task OnInitializedAsync()
+    {
+        //complexSearch = await RecipeService.GetRecipeSearchByCuisine(input.Name, input.Cuisine);
+    }
+
+    private async Task SearchRecipe()
+    {
+        complexSearch = await RecipeService.GetRecipeSearchByCuisine(input.Name, input.Cuisine);
+    }
+}

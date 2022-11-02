@@ -21,6 +21,8 @@
                 <th>Id</th>
                 <th>Title</th>
                 <th>Image</th>
+                <th>Ingredient Amount</th>
+                <th>Ingredient Image</th>
             </tr>
         </thead>
         <tbody>
@@ -29,7 +31,9 @@
                 <tr>
                     <td>@recipe.id</td>
                     <td>@recipe.title</td>
-                    <td>@recipe.image</td>
+                    <td><img src="@recipe.image"></td>
+                    <td>@recipe.usedIngredients[0].amount</td>
+                    <td><img src="@recipe.usedIngredients[0].image"></td>
                 </tr>
             }
         </tbody>

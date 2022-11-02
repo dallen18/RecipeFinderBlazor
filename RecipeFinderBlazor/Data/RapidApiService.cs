@@ -26,6 +26,7 @@ public class RapidApiService
         {
             var client = GetClient();
             var response = await client.GetAsync($"recipes/findByIngredients?ingredients={name}&number=20&ignorePantry=true&ranking=1");
+            //var response = await client.GetAsync($"recipes/complexSearch?query={name}&cuisine={cuisine}&offset=0&number=10&limitLicense=false&ranking=2");
             response.EnsureSuccessStatusCode();
 
             var content = await response.Content.ReadAsStringAsync();

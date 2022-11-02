@@ -1,0 +1,130 @@
+﻿@page "/recipedetail"
+
+ 
+
+<PageTitle>Recipe Details</PageTitle>
+
+@using RecipeFinderBlazor.Data
+@using RecipeFinderBlazor.Models
+
+@inject RecipeDetailService RecipeDetailService
+
+
+<h1>Recipe Details</h1>
+
+ 
+
+@if (recipeDetail == null)
+{
+
+    <p><em>Loading...</em></p>
+
+} else {
+
+    <table class="table">
+
+        <thead>
+
+            <tr>
+
+                <th>ID</th>
+
+                <th>Title</th>
+
+                <th>Summary</th>
+
+                <th>Insutructions</th>
+
+                <th>Image</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            <tr>
+
+                    <td>@recipeDetail.id</td>
+
+                    <td>@recipeDetail.title</td>
+
+                    <td>@recipeDetail.summary</td>
+
+                    <td>@recipeDetail.instructions</td>
+
+                    <td><img src=@recipeDetail.image/></td>
+
+                </tr>
+
+        </tbody>
+
+    </table>
+
+ 
+
+    <p><h2>Instruction Details</h2></p>
+
+ 
+
+    <table class="table">
+
+        <thead>
+
+            <tr>
+
+                <th>Step</th>
+
+                <th>Description</th>
+
+                <th>Ingredients</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            @foreach (var step in @recipeDetail.analyzedInstructions[0].steps)
+
+            {
+
+                <tr>
+
+                    <td> @step.number</td>
+
+                    <td> @step.step</td>
+
+                     @foreach (var ingredient in @step.ingredients)
+
+                     {
+
+                            <td>@ingredient.name</td>
+
+                     }
+
+                </tr>
+
+            }
+
+        </tbody>
+
+    </table>
+
+}
+
+ 
+
+@code {
+
+    private Models.RecipeDetail recipeDetail;
+
+    protected override async Task OnInitializedAsync()
+
+    {
+
+        recipeDetail = await RecipeDetailService.getRecipeDetail(487873);
+
+    }
+
+}
